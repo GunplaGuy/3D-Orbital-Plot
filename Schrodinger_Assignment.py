@@ -1,6 +1,8 @@
 # Schrodinger's Assignment functions
-import scipy.constants as c
+import cmath
 import numpy as np
+import scipy.constants as c
+import scipy.special as s
 from mayavi import mlab
 # ------------------------------------------
 
@@ -70,7 +72,7 @@ def angular_wave_func(m, l, theta, phi):
             Y_ans = np.sqrt(15/(32*np.pi))*(np.sin(theta)**2)*np.exp(m*i*phi)
     elif l == 3:
         if m == 0:
-            Y_ans = np.sqrt(7/(16*np.pi))(5*(np.cos(theta)**3)-3*np.cos(theta))
+            Y_ans = np.sqrt(7/(16*c.pi))*(5*(np.cos(theta)**3)-3*np.cos(theta))
         elif abs(m) == 1:
             Y_ans = -1*(m/abs(m))*np.sqrt(21/(64*np.pi))*np.sin(theta)*(5*(np.cos(theta)**2)-1)*np.exp(m*i*phi)
         elif abs(m) == 2:
@@ -238,17 +240,17 @@ def hydrogen_wave_func(n, l, m, roa, Nx, Ny, Nz):
 # Code to save the data to a file so that
 # you don't have to keep on computing it:
 
-# print('Test ')
-# x,y,z,mag=hydrogen_wave_func(4,1,-1,40,100,100,100)
-# print('x, y, z:')
-# print(x, y, z)
-# print('mag:')
-# print(mag)
-# print (x,y,z,mag)
-# x.dump('x_test.dat')
-# y.dump('y_test.dat')
-# z.dump('z_test.dat')
-# mag.dump('den_test.dat')
+print('Test ')
+x,y,z,mag=hydrogen_wave_func(4, 1, 0, 40, 10, 10, 10)
+print('x, y, z:')
+print(x, y, z)
+print('mag:')
+print(mag)
+print (x,y,z,mag)
+x.dump('x_test.dat')
+y.dump('y_test.dat')
+z.dump('z_test.dat')
+mag.dump('den_test.dat')
 
 mu, sigma = 0, 0.1
 x = np.load('x_test.dat')
@@ -257,7 +259,7 @@ z = np.load('z_test.dat')
 
 density = np.load('den_test.dat')
 figure = mlab.figure('DensityPlot')
-pts = mlab.contour3d(density,contours=40,opacity=0.4)
+pts = mlab.contour3d(density,contours=40,opacity=0.5)
 mlab.axes()
 mlab.show()
 
